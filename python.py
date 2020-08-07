@@ -1,19 +1,20 @@
-# The method is like quick sort
-# first step = find a pivot
-# secont step = put all elements which are smaller than pivot to the left side and all elements bigger to the right side
-# put the pivot in the middle
-# if pivot's index is equal to k , return pivot
-# else if k is smaller than pivot's index , go to first step and do this works for elements in the left side of pivot
-# else , go to first step and do this works for elements in the right side of pivot
-
+def find(s,start,end):
+    p=[s[i:i+5] for i in range(start,end+1,5)]
+    p=list(map(lambda x : sorted(x)[len(x) >> 2],p))
+    if len(p)<=5:
+        return(sorted(p)[len(p) >> 2])
+    return(find(p,0,len(p)-1))
 
 
 def partition(s,start,end,k):
+    if end-start==0:
+        return s[start]
+    pivot=find(s,start,end)
+    pivot=s.index(pivot,start,end+1)
+    s[pivot],s[end]=s[end],s[pivot]
     pivot=s[end]
     i=start
     j=end-1
-    if end-start==0:
-        return s[start]
     
     while i<=j :
         booli=False
@@ -38,9 +39,9 @@ def partition(s,start,end,k):
     else:
         return partition (s,i+1,end,k)
 
-if __name__ == '__main__': # just for a test
+if __name__ == '__main__': # jast for a test
     s=[6,3,1,3,5,6,9,7,5,2,45,65,43,25,7,89,9,89,0,74,2]
-    p=sorted(s)
-    print(p)
+    r=sorted(s)
+    print(r)
     for i in range(1,len(s)+1):
         print(partition(s,0,len(s)-1,i))
